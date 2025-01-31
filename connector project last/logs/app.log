@@ -1,0 +1,67 @@
+2025-01-30 15:25:47,034 [INFO] main_app: Database and tables initialized successfully
+2025-01-30 15:25:47,812 [INFO] main_app: Database and tables initialized successfully
+2025-01-30 15:26:22,572 [INFO] main_app: New user signed up: mdaahan786@gmail.com
+2025-01-30 15:26:30,139 [INFO] main_app: User signed in: mdaahan786@gmail.com
+2025-01-30 15:26:51,397 [DEBUG] main_app: Received POST data - client_id: 1000.CAKPY57PHLHSTTGI804F6JV567OG6V, client_secret: ***, redirect_url: http://127.0.0.1:8000/oauth_redirect/, scopes: , region: US
+2025-01-30 15:26:51,398 [INFO] main_app: Redirecting to Zoho OAuth URL: https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.CAKPY57PHLHSTTGI804F6JV567OG6V&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Foauth_redirect%2F&access_type=offline&prompt=consent&state=1bf7ac5c-b18c-4aa9-8bec-03417672e117&scope=offline_access
+2025-01-30 15:26:54,154 [DEBUG] main_app: Received OAuth Redirect with code: 1000.bd5154be6c29ed8192b51f4537641c16.1f6dbcf20c3ef6b12361afd9cbec5c52 and state: 1bf7ac5c-b18c-4aa9-8bec-03417672e117
+2025-01-30 15:31:16,434 [INFO] main_app: Database and tables initialized successfully
+2025-01-30 15:31:17,191 [INFO] main_app: Database and tables initialized successfully
+2025-01-30 15:31:32,148 [WARNING] main_app: Failed sign-in attempt for email: vshridha821@gmail.com
+2025-01-30 15:31:41,366 [INFO] main_app: User signed in: mdaahan786@gmail.com
+2025-01-30 15:32:03,562 [DEBUG] main_app: Received POST data - client_id: 1000.CAKPY57PHLHSTTGI804F6JV567OG6V, client_secret: ***, redirect_url: http://127.0.0.1:8000/oauth_redirect/, scopes: , region: US
+2025-01-30 15:32:03,563 [INFO] main_app: Redirecting to Zoho OAuth URL: https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.CAKPY57PHLHSTTGI804F6JV567OG6V&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Foauth_redirect%2F&access_type=offline&prompt=consent&state=aee5b12a-923c-403f-978b-f04f91babd13&scope=offline_access
+2025-01-30 15:32:06,137 [DEBUG] main_app: Received OAuth Redirect with code: 1000.5bad31b592532a8da0f38ef967cbcea5.6a6ad8eb9192dce91faa146a2b9a3804 and state: aee5b12a-923c-403f-978b-f04f91babd13
+2025-01-30 15:35:54,008 [INFO] main_app: Database and tables initialized successfully
+2025-01-30 15:35:54,830 [INFO] main_app: Database and tables initialized successfully
+2025-01-30 15:36:07,805 [INFO] main_app: User signed in: sahib.encap@gmail.com
+2025-01-30 15:36:49,069 [DEBUG] main_app: Received POST data - client_id: 1000.CAKPY57PHLHSTTGI804F6JV567OG6V, client_secret: ***, redirect_url: http://127.0.0.1:8000/oauth_redirect/, scopes: , region: US
+2025-01-30 15:36:49,071 [INFO] main_app: Redirecting to Zoho OAuth URL: https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.CAKPY57PHLHSTTGI804F6JV567OG6V&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Foauth_redirect%2F&access_type=offline&prompt=consent&state=b5bc5822-56c2-48c8-b951-51fdb8e67b88&scope=offline_access
+2025-01-30 15:36:51,504 [DEBUG] main_app: Received OAuth Redirect with code: 1000.ef781e8d3faff25e2adc1a01f2113ed2.7df53e5c9c07ebd67eae509a9e1d90f0 and state: b5bc5822-56c2-48c8-b951-51fdb8e67b88
+2025-01-30 17:23:41,159 [INFO] main_app: Database and tables initialized successfully
+2025-01-30 17:23:41,997 [INFO] main_app: Database and tables initialized successfully
+2025-01-30 17:24:58,820 [INFO] main_app: New user signed up: tigerone890@gmail.com
+2025-01-30 17:25:06,940 [INFO] main_app: User signed in: tigerone890@gmail.com
+2025-01-30 17:26:04,960 [DEBUG] main_app: Received POST data - client_id: 1000.CAKPY57PHLHSTTGI804F6JV567OG6V, client_secret: ***, redirect_url: http://127.0.0.1:8000/oauth_redirect/, scopes: , region: US
+2025-01-30 17:26:04,961 [INFO] main_app: Redirecting to Zoho OAuth URL: https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.CAKPY57PHLHSTTGI804F6JV567OG6V&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Foauth_redirect%2F&access_type=offline&prompt=consent&state=63d7b573-8570-4858-9cd4-5385dbfc6c69&scope=offline_access
+2025-01-30 17:26:07,324 [DEBUG] main_app: Received OAuth Redirect with code: 1000.375ca91ef744d147e87564c7bcafca8a.0fe3d7afd19e197617238eb617bab2ed and state: 63d7b573-8570-4858-9cd4-5385dbfc6c69
+2025-01-30 17:27:26,454 [INFO] main_app: Database and tables initialized successfully
+2025-01-30 17:27:28,549 [INFO] main_app: Database and tables initialized successfully
+2025-01-30 17:28:13,335 [WARNING] main_app: Authentication error: Passwords do not match.
+2025-01-30 17:28:20,807 [INFO] main_app: User signed in: tigerone890@gmail.com
+2025-01-30 17:28:45,870 [DEBUG] main_app: Received POST data - client_id: 1000.CAKPY57PHLHSTTGI804F6JV567OG6V, client_secret: ***, redirect_url: http://127.0.0.1:8000/oauth_redirect/, scopes: , region: US
+2025-01-30 17:28:45,872 [INFO] main_app: Redirecting to Zoho OAuth URL: https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.CAKPY57PHLHSTTGI804F6JV567OG6V&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Foauth_redirect%2F&access_type=offline&prompt=consent&state=e18e4317-1bf6-4f6a-92a0-13ef57c5d15f&scope=offline_access
+2025-01-30 17:28:48,780 [DEBUG] main_app: Received OAuth Redirect with code: 1000.487a8cef9df9af7f9f8b2e51e8bc8bc5.1004e08c6879d0e490ebf7aa85fb50e0 and state: e18e4317-1bf6-4f6a-92a0-13ef57c5d15f
+2025-01-30 17:30:53,306 [INFO] main_app: User signed in: tigerone890@gmail.com
+2025-01-30 17:32:43,679 [DEBUG] main_app: Received POST data - client_id: 1000.CAKPY57PHLHSTTGI804F6JV567OG6V, client_secret: ***, redirect_url: http://127.0.0.1:8000/oauth_redirect/, scopes: , region: EU
+2025-01-30 17:32:43,681 [INFO] main_app: Redirecting to Zoho OAuth URL: https://accounts.zoho.eu/oauth/v2/auth?response_type=code&client_id=1000.CAKPY57PHLHSTTGI804F6JV567OG6V&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Foauth_redirect%2F&access_type=offline&prompt=consent&state=35aa28fb-1bfa-4494-93d8-a0599031f93a&scope=offline_access
+2025-01-30 17:36:10,936 [INFO] main_app: User signed in: tigerone890@gmail.com
+2025-01-30 17:48:28,925 [INFO] main_app: User signed in: tigerone890@gmail.com
+2025-01-30 17:48:47,346 [WARNING] main_app: Failed sign-in attempt for email: tigerone890@gmail.com
+2025-01-31 10:52:03,701 [ERROR] main_app: Database initialization error: 2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
+2025-01-31 10:52:14,008 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 10:52:15,789 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 11:26:42,740 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 11:26:43,518 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 11:27:06,263 [INFO] main_app: User signed in: sahib.encap@gmail.com
+2025-01-31 11:27:35,223 [DEBUG] main_app: Received POST data - client_id: 1000.CAKPY57PHLHSTTGI804F6JV567OG6V, client_secret: ***, redirect_url: http://127.0.0.1:8000/oauth_redirect/, scopes: , region: US
+2025-01-31 11:27:35,223 [INFO] main_app: Redirecting to Zoho OAuth URL: https://accounts.zoho.com/oauth/v2/auth?response_type=code&client_id=1000.CAKPY57PHLHSTTGI804F6JV567OG6V&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Foauth_redirect%2F&access_type=offline&prompt=consent&state=872b2693-db7c-4a88-b4eb-c4c048958892&scope=offline_access
+2025-01-31 11:27:38,506 [DEBUG] main_app: Received OAuth Redirect with code: 1000.0d9a4250f0c4eef563c1def80a10ab89.e5ed39149985257d9dd8c6fde9a0fffc and state: 872b2693-db7c-4a88-b4eb-c4c048958892
+2025-01-31 11:27:43,778 [DEBUG] main_app: Received OAuth Redirect with code: None and state: 872b2693-db7c-4a88-b4eb-c4c048958892
+2025-01-31 11:38:42,964 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 11:38:43,699 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 11:39:36,840 [INFO] main_app: User signed in: sahib.encap@gmail.com
+2025-01-31 11:58:27,013 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 11:58:27,786 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 11:58:45,090 [INFO] main_app: User signed in: sahib.encap@gmail.com
+2025-01-31 13:06:57,652 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 13:06:58,520 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 13:16:59,324 [INFO] main_app: User signed in: sahib.encap@gmail.com
+2025-01-31 13:17:10,281 [INFO] main_app: User signed in: sahib.encap@gmail.com
+2025-01-31 13:22:30,779 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 13:22:32,832 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 13:27:46,867 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 13:27:48,720 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 13:28:03,858 [WARNING] main_app: Failed sign-in attempt for email: sahib.encap@gmail.com
+2025-01-31 13:28:12,809 [INFO] main_app: User signed in: sahib.encap@gmail.com
+2025-01-31 13:40:19,499 [ERROR] main_app: Database initialization error: 2003: Can't connect to MySQL server on 'localhost:3306' (61 Connection refused)

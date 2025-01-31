@@ -1,0 +1,2 @@
+2025-01-31 10:52:03,701 [ERROR] main_app: Database initialization error: 2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
+2025-01-31 13:40:19,499 [ERROR] main_app: Database initialization error: 2003: Can't connect to MySQL server on 'localhost:3306' (61 Connection refused)

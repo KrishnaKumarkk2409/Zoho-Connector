@@ -1,0 +1,12 @@
+requests
+mysql-connector-python
+Flask==3.0.2
+Werkzeug==3.0.1
+flask-session==0.6.0
+mysql-connector-python==8.3.0
+flask-limiter==3.5.0
+requests==2.31.0
+python-dotenv==1.0.1
+logging==0.4.9.6
+pathlib==1.0.1
+urllib3==2.2.0

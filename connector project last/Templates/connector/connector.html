@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zoho OAuth</title>
+
+  <!-- External CSS File -->
+  <link rel="stylesheet" href="/Templates/connector/cstyle.css">
+  <script src="/Templates/connector/cstyle.js" defer></script> <!-- Correct JS link -->
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="card p-4 p-md-5">
+      <h2 class="card-title">
+        <i class="fas fa-shield-alt logo-icon"></i>
+        Zoho OAuth Authentication
+      </h2>
+      <form method="POST" action="/get_oauth_tokens" id="oauthForm">
+        <!-- Client ID Field -->
+        <div class="form-group">
+          <label for="client_id">Client ID:</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input type="text" class="form-control" id="client_id" name="client_id" placeholder="Enter your client ID" required />
+          </div>
+        </div>
+        
+        <!-- Client Secret Field -->
+        <div class="form-group">
+          <label for="client_secret">Client Secret:</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            </div>
+            <input type="password" class="form-control" id="client_secret" name="client_secret" placeholder="Enter your client secret" required />
+          </div>
+        </div>
+        
+        <!-- Redirect URL Field -->
+        <div class="form-group">
+          <label for="redirect_url">Redirect URL:</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-link"></i></span>
+            </div>
+            <input type="text" class="form-control" id="redirect_url" name="redirect_url" value="http://127.0.0.1:8000/oauth_redirect/" readonly />
+          </div>
+        </div>
+        
+        <!-- Region Selection Field -->
+        <div class="form-group">
+          <label for="region">Select Zoho Region:</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-globe"></i></span>
+            </div>
+            <select id="region" name="region" class="form-control" required>
+              <option value="" disabled selected>Select your region</option>
+              <option value="US">United States (US)</option>
+              <option value="AU">Australia (AU)</option>
+              <option value="EU">Europe (EU)</option>
+              <option value="IN">India (IN)</option>
+              <option value="CN">China (CN)</option>
+              <option value="JP">Japan (JP)</option>
+              <option value="SA">Saudi Arabia (SA)</option>
+              <option value="CA">Canada (CA)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Application and Scope Selection Fields -->
+        <div class="form-group">
+          <label>Select Scopes:</label>
+          <div id="applicationsContainer" class="dropdown-container">
+            <div class="dropdown-input" id="applicationsDropdown">
+              <div class="dropdown-input-text" id="selectedAppText">Select scopes</div>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-list" id="applicationsList">
+              <!-- Applications and Scopes will be dynamically rendered -->
+            </div>
+            <div class="selected-scopes-display" id="selectedScopesDisplay"></div>
+          </div>
+        </div>
+
+        <!-- Hidden Fields -->
+        <input type="hidden" id="application_id" name="application_id" /> <!-- To store selected application_id -->
+        <input type="hidden" id="scopes" name="scopes" /> <!-- To store selected scopes -->
+
+        <!-- Submit Button -->
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary btn-authenticate btn-block" id="authenticateBtn">
+            <i class="fas fa-lock me-2"></i> Authenticate
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- External JS File -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Set to store selected scopes
+      const selectedScopes = new Set();
+    
+      // Enhanced toast notification system
+      function showToast(message, type = 'info') {
+          const toast = document.createElement('div');
+          toast.className = `toast ${type}`;
+          toast.innerHTML = `
+              <div class="toast-content">
+                  <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+                  <span>${message}</span>
+              </div>
+          `;
+          
+          document.getElementById('toast-container').appendChild(toast);
+          
+          setTimeout(() => {
+              toast.style.animation = 'toastSlideOut 0.3s ease forwards';
+              setTimeout(() => toast.remove(), 300);
+          }, 3000);
+      }
+
+      // Enhanced update selected scopes display
+      function updateSelectedScopesDisplay() {
+          const displayDiv = document.getElementById("selectedScopesDisplay");
+          displayDiv.innerHTML = '';
+          
+          if (selectedScopes.size === 0) {
+              displayDiv.innerHTML = '<div class="text-muted">No scopes selected</div>';
+              return;
+          }
+          
+          selectedScopes.forEach(scope => {
+              const scopeTag = document.createElement('span');
+              scopeTag.className = 'scope-tag';
+              scopeTag.innerHTML = `
+                  ${scope}
+                  <span class="remove-scope" data-scope="${scope}">×</span>
+              `;
+              displayDiv.appendChild(scopeTag);
+          });
+
+          // Enhanced remove button handlers
+          displayDiv.querySelectorAll('.remove-scope').forEach(button => {
+              button.addEventListener('click', (e) => {
+                  const scope = e.target.dataset.scope;
+                  selectedScopes.delete(scope);
+                  // Uncheck the corresponding checkbox with animation
+                  const checkbox = document.querySelector(`input[type="checkbox"][value="${scope}"]`);
+                  if (checkbox) {
+                      checkbox.checked = false;
+                      checkbox.closest('.form-check').style.animation = 'fadeOut 0.3s ease';
+                  }
+                  updateSelectedScopesDisplay();
+                  updateAuthenticateButton();
+              });
+          });
+      }
+
+      // Update authenticate button state
+      function updateAuthenticateButton() {
+          const clientId = document.getElementById('client_id').value;
+          const clientSecret = document.getElementById('client_secret').value;
+          const region = document.getElementById('region').value;
+          
+          const isValid = clientId && 
+                         clientSecret && 
+                         region && 
+                         selectedScopes.size > 0;
+          
+          const authenticateBtn = document.getElementById('authenticateBtn');
+          authenticateBtn.disabled = !isValid;
+          
+          if (isValid) {
+              authenticateBtn.classList.add('btn-primary');
+              authenticateBtn.classList.remove('btn-secondary');
+          } else {
+              authenticateBtn.classList.remove('btn-primary');
+              authenticateBtn.classList.add('btn-secondary');
+          }
+      }
+
+      // Fetch applications and initialize the dropdown with enhanced UI
+      fetch("/api/applications")
+          .then((response) => response.json())
+          .then((data) => {
+              const apps = data.applications;
+              const dropdownInput = document.getElementById("applicationsDropdown");
+              const dropdownList = document.getElementById("applicationsList");
+              const selectedTextDiv = document.getElementById("selectedAppText");
+
+              // Enhanced dropdown toggle with animation
+              dropdownInput.addEventListener("click", () => {
+                  dropdownList.classList.toggle("show");
+                  const chevron = dropdownInput.querySelector('.fa-chevron-down');
+                  if (chevron) {
+                      chevron.style.transform = dropdownList.classList.contains('show') 
+                          ? 'rotate(180deg)' 
+                          : 'rotate(0deg)';
+                  }
+              });
+
+              // Enhanced outside click handler
+              document.addEventListener("click", (e) => {
+                  if (!dropdownInput.contains(e.target) && !dropdownList.contains(e.target)) {
+                      dropdownList.classList.remove("show");
+                      const chevron = dropdownInput.querySelector('.fa-chevron-down');
+                      if (chevron) {
+                          chevron.style.transform = 'rotate(0deg)';
+                      }
+                  }
+              });
+
+              // Enhanced scope fetching and display
+              function fetchAndDisplayScopes(appId, scopesDiv) {
+                  scopesDiv.innerHTML = '<div class="text-center py-2"><i class="fas fa-spinner fa-spin"></i> Loading scopes...</div>';
+                  
+                  fetch(`/api/scopes?application_id=${appId}`)
+                      .then((response) => response.json())
+                      .then((data) => {
+                          scopesDiv.innerHTML = "";
+                          if (data.scopes.length === 0) {
+                              scopesDiv.innerHTML = '<p class="text-muted text-center">No scopes available for this application.</p>';
+                              return;
+                          }
+                          
+                          data.scopes.forEach((scope) => {
+                              const scopeDiv = document.createElement("div");
+                              scopeDiv.className = "form-check sub-item";
+                              scopeDiv.style.animation = 'fadeIn 0.3s ease forwards';
+
+                              const scopeCheckbox = document.createElement("input");
+                              scopeCheckbox.type = "checkbox";
+                              scopeCheckbox.className = "form-check-input scope-checkbox";
+                              scopeCheckbox.value = scope;
+                              scopeCheckbox.id = `app${appId}-scope-${scope}`; // Ensure unique ID for each scope
+                              
+                              if (selectedScopes.has(scope)) {
+                                  scopeCheckbox.checked = true;
+                              }
+
+                              scopeCheckbox.addEventListener('change', (e) => {
+                                  if (e.target.checked) {
+                                      selectedScopes.add(scope);
+                                      showToast(`Added scope: ${scope}`, 'success');
+                                  } else {
+                                      selectedScopes.delete(scope);
+                                  }
+                                  updateSelectedScopesDisplay();
+                                  updateAuthenticateButton();
+                              });
+
+                              const scopeLabel = document.createElement("label");
+                              scopeLabel.className = "form-check-label";
+                              scopeLabel.htmlFor = `app${appId}-scope-${scope}`;
+                              scopeLabel.textContent = scope;
+
+                              scopeDiv.appendChild(scopeCheckbox);
+                              scopeDiv.appendChild(scopeLabel);
+                              scopesDiv.appendChild(scopeDiv);
+                          });
+                          
+                          // Animate scope list expansion
+                          scopesDiv.style.display = "block";
+                          scopesDiv.style.maxHeight = "0px";
+                          setTimeout(() => {
+                              scopesDiv.style.maxHeight = scopesDiv.scrollHeight + "px";
+                          }, 0);
+                      })
+                      .catch((error) => {
+                          console.error("Error fetching scopes:", error);
+                          scopesDiv.innerHTML = '<p class="text-danger text-center">Error loading scopes. Please try again.</p>';
+                          showToast('Failed to load scopes. Please try again.', 'error');
+                      });
+              }
+
+              // Render applications with enhanced UI
+              apps.forEach((app) => {
+                  const appElement = document.createElement("div");
+                  appElement.className = "scope-item";
+
+                  const appHTML = `
+                      <div class="scope-header">
+                          <div class="checkbox-wrapper">
+                              <input type="checkbox" data-app-id="${app.id}" id="app-${app.id}">
+                              <label for="app-${app.id}">${app.name}</label>
+                          </div>
+                          <i class="fas fa-chevron-right chevron"></i>
+                      </div>
+                      <div class="scope-items" id="scopes-for-app${app.id}" style="display: none;"></div>
+                  `;
+
+                  appElement.innerHTML = appHTML;
+
+                  const header = appElement.querySelector(".scope-header");
+                  const scopesDiv = appElement.querySelector(".scope-items");
+                  const chevron = appElement.querySelector(".chevron");
+                  const checkbox = appElement.querySelector(`[data-app-id="${app.id}"]`);
+
+                  // Enhanced toggle with animation
+                  header.addEventListener("click", (e) => {
+                      if (!e.target.matches("input")) {
+                          const isExpanding = scopesDiv.style.display !== "block";
+                          
+                          chevron.style.transform = isExpanding ? 'rotate(90deg)' : 'rotate(0deg)';
+                          
+                          if (isExpanding) {
+                              scopesDiv.style.display = "block";
+                              scopesDiv.style.maxHeight = "0px";
+                              setTimeout(() => {
+                                  scopesDiv.style.maxHeight = scopesDiv.scrollHeight + "px";
+                              }, 0);
+                          } else {
+                              scopesDiv.style.maxHeight = "0px";
+                              setTimeout(() => {
+                                  scopesDiv.style.display = "none";
+                              }, 300);
+                          }
+                      }
+                  });
+
+                  // Enhanced checkbox handler
+                  checkbox.addEventListener("change", (e) => {
+                      if (e.target.checked) {
+                          fetchAndDisplayScopes(app.id, scopesDiv);
+                      } else {
+                          // Animate scope removal
+                          scopesDiv.style.maxHeight = "0px";
+                          setTimeout(() => {
+                              scopesDiv.innerHTML = "";
+                              scopesDiv.style.display = "none";
+                              
+
+                              const appScopes = document.querySelectorAll(`[id^=app${app.id}-scope-]`);
+                              appScopes.forEach(scope => {
+                                  selectedScopes.delete(scope.value);
+                              });
+                              updateSelectedScopesDisplay();
+                              updateAuthenticateButton();
+                          }, 300);
+                      }
+                  });
+
+                  dropdownList.appendChild(appElement);
+              });
+          })
+          .catch((error) => {
+              console.error("Error fetching applications:", error);
+              const dropdownList = document.getElementById("applicationsList");
+              dropdownList.innerHTML = '<p class="text-danger text-center">Error loading applications. Please refresh the page.</p>';
+              showToast('Failed to load applications. Please refresh the page.', 'error');
+          });
+
+      // Enhanced form submission
+      document.getElementById('oauthForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const submitButton = document.getElementById('authenticateBtn');
+          submitButton.disabled = true;
+          submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+
+          // Add selected scopes to form data
+          const scopesInput = document.createElement('input');
+          scopesInput.type = 'hidden';
+          scopesInput.name = 'scopes';
+          scopesInput.value = Array.from(selectedScopes).join(',');
+          this.appendChild(scopesInput);
+
+          // Submit the form
+          this.submit();
+      });
+
+      // Input event listeners for form validation
+      ['client_id', 'client_secret', 'region'].forEach(id => {
+          document.getElementById(id).addEventListener('input', updateAuthenticateButton);
+      });
+
+      // Initialize
+      updateAuthenticateButton();
+      updateSelectedScopesDisplay();
+    });
+  </script>
+</body>
+</html>

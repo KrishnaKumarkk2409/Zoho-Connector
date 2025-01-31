@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/Templates/Signin_up/style.css">
+  <script src="/Templates/Signin_up/style.js" defer></script> <!-- Correct JS link -->
+
+  <title>AI Generative - Sign In/Sign Up</title>
+</head>
+<style>
+  /* Your existing CSS remains unchanged */
+  /* ... (existing CSS code) ... */
+</style>
+<body>
+    <div class="left-panel">
+      <div class="content-wrapper">
+        <div class="header-section">
+          <div class="zoho-logo">
+            <svg viewBox="0 0 100 100">
+              <path d="M50 0C22.4 0 0 22.4 0 50s22.4 50 50 50 50-22.4 50-50S77.6 0 50 0zm0 90c-22.1 0-40-17.9-40-40s17.9-40 40-40 40 17.9 40 40-17.9 40-40 40z"/>
+              <path d="M65 35H35c-1.1 0-2 .9-2 2v26c0 1.1.9 2 2 2h30c1.1 0 2-.9 2-2V37c0-1.1-.9-2-2-2zm-5 20H40V42h20v13z"/>
+            </svg>
+          </div>
+          <h1>Zoho Enterprise Connector</h1>
+          <p>Your Gateway to Seamless Integration</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🔐</div>
+            <h3>Secure Authentication</h3>
+            <p>Enterprise-grade security with OAuth 2.0 and refresh token management</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3>Real-time Sync</h3>
+            <p>Automated data synchronization across all Zoho applications</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>High Performance</h3>
+            <p>Optimized API calls with intelligent caching and rate limiting</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Analytics Ready</h3>
+            <p>Built-in monitoring and detailed usage analytics</p>
+          </div>
+        </div>
+
+        <div class="stats-section">
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div>Zoho Apps</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">99.9%</div>
+            <div>Uptime</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">10ms</div>
+            <div>Low Latency</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cube-container">
+        <div class="cube" style="top: 20%; left: 20%;">
+          <div class="cube-face front"></div>
+          <div class="cube-face back"></div>
+          <div class="cube-face right"></div>
+          <div class="cube-face left"></div>
+          <div class="cube-face top"></div>
+          <div class="cube-face bottom"></div>
+        </div>
+        <div class="cube" style="top: 60%; left: 70%;">
+          <div class="cube-face front"></div>
+          <div class="cube-face back"></div>
+          <div class="cube-face right"></div>
+          <div class="cube-face left"></div>
+          <div class="cube-face top"></div>
+          <div class="cube-face bottom"></div>
+        </div>
+      </div>
+      
+      <div class="stars"></div>
+      <div class="planet-glow"></div>
+    </div>
+
+  <!-- Right Panel -->
+  <div class="right-panel">
+    <div class="auth-container">
+      <h2 id="authTitle">Welcome Back!</h2>
+      <form id="authForm" method="POST" action="/auth">
+        
+        <!-- Hidden Input to Determine Action (Sign In or Sign Up) -->
+        <input type="hidden" id="action" name="action" value="signin">
+        
+        <!-- Full Name Group -->
+        <div class="input-group" id="nameGroup" style="display: none;">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="first_name" placeholder="Enter your first name">
+          <span class="error-message" id="firstNameError"></span>
+        </div>
+
+        <div class="input-group" id="lastNameGroup" style="display: none;">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="last_name" placeholder="Enter your last name">
+          <span class="error-message" id="lastNameError"></span>
+        </div>
+
+        <!-- Email and Password -->
+        <div class="input-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          <span class="error-message" id="emailError"></span>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required>
+          <span class="error-message" id="passwordError"></span>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="input-group" id="confirmPasswordGroup" style="display: none;">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm your password">
+          <span class="error-message" id="confirmPasswordError"></span>
+        </div>
+
+        <button type="submit" class="auth-btn" id="authButton">Sign In</button>
+      </form>
+      
+      <!-- OAuth Authentication Section (Optional) -->
+      <!-- If you wish to include OAuth, you can uncomment the following section -->
+      <!--
+      <div class="oauth-section">
+        <p class="oauth-text">Or authenticate with Zoho:</p>
+        <button class="auth-btn oauth-btn" id="oauthButton">
+          <i class="fas fa-lock me-2"></i> Authenticate with Zoho
+        </button>
+        <span class="error-message" id="oauthError"></span>
+      </div>
+      -->
+
+      <div class="toggle-form">
+        <button id="toggleForm">Don't have an account? Sign Up</button>
+      </div>
+      
+      <!-- Display Success or Error Messages -->
+      {% if message %}
+        <div class="message" id="serverMessage" style="color: green; margin-top: 1rem; text-align: center;">
+          {{ message }}
+        </div>
+      {% endif %}
+      
+      {% if error %}
+        <div class="message" id="serverError" style="color: red; margin-top: 1rem; text-align: center;">
+          {{ error }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  
+  <script>
+    // Toggle between Sign In and Sign Up
+    const toggleFormButton = document.getElementById('toggleForm');
+    const firstNameGroup = document.getElementById('nameGroup');
+    const lastNameGroup = document.getElementById('lastNameGroup');
+    const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+    const authTitle = document.getElementById('authTitle');
+    const authButton = document.getElementById('authButton');
+    const actionInput = document.getElementById('action');
+    let isSignIn = true;
+
+    toggleFormButton.addEventListener('click', () => {
+      isSignIn = !isSignIn;
+      firstNameGroup.style.display = isSignIn ? 'none' : 'block';
+      lastNameGroup.style.display = isSignIn ? 'none' : 'block';
+      confirmPasswordGroup.style.display = isSignIn ? 'none' : 'block';
+      authTitle.textContent = isSignIn ? 'Welcome Back!' : 'Create an Account';
+      authButton.textContent = isSignIn ? 'Sign In' : 'Sign Up';
+      toggleFormButton.textContent = isSignIn
+        ? "Don't have an account? Sign Up"
+        : 'Already have an account? Sign In';
+      actionInput.value = isSignIn ? 'signin' : 'signup';
+    });
+
+    // Optional: Handle OAuth Authentication Button Click
+    /*
+    const oauthButton = document.getElementById('oauthButton');
+    const oauthError = document.getElementById('oauthError');
+
+    oauthButton.addEventListener('click', async () => {
+      try {
+        const response = await fetch('/get_oauth_tokens', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({}) // You can send additional data if needed
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Redirect to Zoho OAuth URL
+          window.location.href = data.redirect;
+        } else {
+          oauthError.style.color = 'red';
+          oauthError.textContent = data.error;
+        }
+      } catch (error) {
+        oauthError.style.color = 'red';
+        oauthError.textContent = 'An error occurred. Please try again.';
+        console.error('OAuth Error:', error);
+      }
+    });
+    */
+  </script>
+</body>
+</html>
