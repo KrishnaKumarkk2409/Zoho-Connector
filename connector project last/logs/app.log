@@ -65,3 +65,15 @@
 2025-01-31 13:28:03,858 [WARNING] main_app: Failed sign-in attempt for email: sahib.encap@gmail.com
 2025-01-31 13:28:12,809 [INFO] main_app: User signed in: sahib.encap@gmail.com
 2025-01-31 13:40:19,499 [ERROR] main_app: Database initialization error: 2003: Can't connect to MySQL server on 'localhost:3306' (61 Connection refused)
+2025-01-31 08:35:44,894 [ERROR] main_app: Database initialization error: 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+2025-01-31 10:06:21,095 [ERROR] main_app: Database initialization error: 1044 (42000): Access denied for user 'your_user'@'localhost' to database 'zoho_oauth_db'
+2025-01-31 10:12:52,566 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 10:12:52,922 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 10:16:45,449 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 10:16:45,808 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 10:23:32,394 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 10:23:32,745 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 10:29:24,060 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 10:29:24,442 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 10:30:53,986 [INFO] main_app: Database and tables initialized successfully
+2025-01-31 10:30:54,343 [INFO] main_app: Database and tables initialized successfully

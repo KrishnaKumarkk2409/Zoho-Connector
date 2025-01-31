@@ -82,7 +82,7 @@ logger.addHandler(console_handler)
 
 DB_CONFIG = {
     "host": "localhost",
-    "user": "root",
+    "user": "Local",
     "password": "",  # XAMPP MySQL default has no password
     "database": "zoho_oauth_db",
     "port": 3306
@@ -601,4 +601,4 @@ def ensure_directories():
 ensure_directories()
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+    app.run(host="0.0.0.0",debug=True, port=8000)
